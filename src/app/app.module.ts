@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 // Modulos
 import { AppRoutingModule } from './app-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { AngularFireModule } from '@angular/fire/compat';
 
 // Componentes
 import { AppComponent } from './app.component';
@@ -12,6 +13,7 @@ import { UserRegisterComponent } from './components/user-register/user-register.
 import { EmailVerificationComponent } from './components/email-verification/email-verification.component';
 import { RecoverPasswordComponent } from './components/recover-password/recover-password.component';
 import { SpinnerComponent } from './shared/spinner/spinner.component';
+import { environment } from 'src/environments/environment';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,12 @@ import { SpinnerComponent } from './shared/spinner/spinner.component';
     RecoverPasswordComponent,
     SpinnerComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, ReactiveFormsModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    ReactiveFormsModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })
