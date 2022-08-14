@@ -22,9 +22,9 @@ export class UserRegisterComponent implements OnInit {
     private firebaseerror: FirebaseCodeErrorsService
   ) {
     this.registerUser = fb.group({
-      email: ['', Validators.required],
-      password: ['', Validators.required],
-      repeat_password: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      repeat_password: ['', [Validators.required, Validators.minLength(6)]],
     });
   }
 
@@ -36,15 +36,6 @@ export class UserRegisterComponent implements OnInit {
 
     if (password !== repeat_password) {
       this.toastr.error('passwords do not match', 'Error');
-      return;
-    }
-
-    if (email === '') {
-      this.toastr.error('the email fields must contain information', 'Error');
-      return;
-    }
-    if (password === '' || repeat_password === '') {
-      this.toastr.error('password fields must contain information', 'Error');
       return;
     }
 

@@ -3,6 +3,7 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { ValidationError } from 'sequelize/types';
 import { FirebaseCodeErrorsService } from 'src/app/services/firebase-code-errors.service';
 
 @Component({
@@ -21,8 +22,8 @@ export class LoginComponent implements OnInit {
     private firebaseerror: FirebaseCodeErrorsService
   ) {
     this.loginUser = this.fb.group({
-      email: ['', Validators.required],
-      password: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
     });
   }
 
