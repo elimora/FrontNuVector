@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { FirebaseCodeErrorsService } from '../../services/firebase-code-errors.service';
 
 @Component({
   selector: 'app-user-register',
@@ -17,7 +18,8 @@ export class UserRegisterComponent implements OnInit {
     private fb: FormBuilder,
     private afAuth: AngularFireAuth,
     private toastr: ToastrService,
-    private router: Router
+    private router: Router,
+    private firebaseerror: FirebaseCodeErrorsService
   ) {
     this.registerUser = fb.group({
       email: ['', Validators.required],
@@ -55,24 +57,7 @@ export class UserRegisterComponent implements OnInit {
       })
       .catch((error) => {
         this.loading = false;
-        this.toastr.error(this.fireBaseError(error.code), 'Error');
+        this.toastr.error(this.firebaseerror.codeError(error.code), 'Error');
       });
-  }
-
-  fireBaseError(code: string) {
-    switch (code) {
-      case 'auth/email-already-in-use':
-        return 'The NuVector user alredy exists';
-
-      case 'auth/weak-password':
-        return 'the password is very weak';
-
-      case 'auth/invalid-email':
-        return 'the email is invalid';
-
-      default:
-        return 'unknown error';
-        break;
-    }
   }
 }
