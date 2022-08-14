@@ -43,12 +43,23 @@ export class UserRegisterComponent implements OnInit {
     this.afAuth
       .createUserWithEmailAndPassword(email, password)
       .then(() => {
-        this.toastr.success('Registered user successfully', 'Success');
-        this.router.navigate(['/login']);
+        this.checkEmail();
       })
       .catch((error) => {
         this.loading = false;
         this.toastr.error(this.firebaseerror.codeError(error.code), 'Error');
+      });
+  }
+
+  checkEmail() {
+    this.afAuth.currentUser
+      .then((user) => user?.sendEmailVerification())
+      .then(() => {
+        this.toastr.info(
+          'An email was sent to you for verification',
+          'check email'
+        );
+        this.router.navigate(['/login']);
       });
   }
 }
