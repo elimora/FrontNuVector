@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
+import { Project } from 'src/app/models/project.models';
+import { ProjectService } from 'src/app/services/project.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,7 +11,13 @@ import { Router } from '@angular/router';
 })
 export class DashboardComponent implements OnInit {
   dataUser: any;
-  constructor(private afAuth: AngularFireAuth, private router: Router) {}
+  projects: any = [];
+
+  constructor(
+    private afAuth: AngularFireAuth,
+    private router: Router,
+    private projectservices: ProjectService
+  ) {}
 
   ngOnInit(): void {
     this.afAuth.currentUser.then((user) => {
@@ -19,6 +27,10 @@ export class DashboardComponent implements OnInit {
         this.router.navigate(['/login']);
       }
     });
+    this.projectservices.getProjects().subscribe(
+      (res) => (this.projects = res),
+      (err) => console.error(err)
+    );
   }
 
   logOut() {

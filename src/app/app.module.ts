@@ -6,6 +6,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AngularFireModule } from '@angular/fire/compat';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
+import { HttpClientJsonpModule, HttpClientModule } from '@angular/common/http';
 
 // Componentes
 import { AppComponent } from './app.component';
@@ -17,6 +18,10 @@ import { RecoverPasswordComponent } from './components/recover-password/recover-
 import { SpinnerComponent } from './shared/spinner/spinner.component';
 import { environment } from 'src/environments/environment';
 
+//services
+import { ProjectService } from './services/project.service';
+import { NewProjectComponent } from './components/new-project/new-project.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,6 +31,7 @@ import { environment } from 'src/environments/environment';
     EmailVerificationComponent,
     RecoverPasswordComponent,
     SpinnerComponent,
+    NewProjectComponent,
   ],
   imports: [
     BrowserModule,
@@ -34,8 +40,9 @@ import { environment } from 'src/environments/environment';
     AngularFireModule.initializeApp(environment.firebaseConfig),
     BrowserAnimationsModule, // required animations module
     ToastrModule.forRoot(), // ToastrModule added
+    HttpClientModule,
   ],
-  providers: [],
+  providers: [ProjectService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
