@@ -21,17 +21,18 @@ import { environment } from 'src/environments/environment';
 //services
 import { ProjectService } from './services/project.service';
 import { NewProjectComponent } from './components/new-project/new-project.component';
+import { AddClientComponent } from './components/add-client/add-client.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    DashboardComponent,
     UserRegisterComponent,
     EmailVerificationComponent,
     RecoverPasswordComponent,
     SpinnerComponent,
     NewProjectComponent,
+    AddClientComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,54 @@
+<div class="grapper">
+  <div class="body">
+    <h1>Add new Client</h1>
+    <form (submit)="AddClient()" [formGroup]="addUser">
+      <div class="form-floating mb-3">
+        <input
+          class="form-control"
+          placeholder="Client name"
+          formControlName="name"
+        />
+        <label>Name</label>
+      </div>
+      <div class="form-floating mb-3">
+        <input class="form-control" placeholder="city" formControlName="city" />
+        <label>City</label>
+      </div>
+      <div class="form-floating mb-3">
+        <input
+          class="form-control"
+          placeholder="state"
+          formControlName="state"
+        />
+        <label>State</label>
+      </div>
+      <div class="form-floating mb-3">
+        <input
+          class="form-control"
+          placeholder="Country"
+          formControlName="country"
+        />
+        <label>Country</label>
+      </div>
+      <div class="form-floating mb-3">
+        <input
+          class="form-control"
+          placeholder="Industry"
+          formControlName="industry_code"
+        />
+        <label>Industry</label>
+      </div>
+      <div class="form-floating mb-3">
+        <input
+          class="form-control"
+          placeholder="active"
+          formControlName="active"
+        />
+        <label>Active</label>
+      </div>
+      <div class="d-grid gap-2">
+        <button type="submit" class="btn btn-primary btn-lg">Enter</button>
+      </div>
+    </form>
+  </div>
+</div>

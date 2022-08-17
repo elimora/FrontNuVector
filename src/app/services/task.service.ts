@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Task } from '../models/task.models';
+import { IApiResponse } from '../interfaces/general';
+import { map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -10,7 +12,9 @@ export class TaskService {
   constructor(private http: HttpClient) {}
 
   getTasks() {
-    return this.http.get(`${this.API_URI}/tasks-entries`);
+    return this.http
+      .get<IApiResponse<Task[]>>(`${this.API_URI}/tasks-entries`)
+      .pipe(map((res) => res.body));
   }
 
   getTask(id: string) {
