@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import firebase from 'firebase/compat/app';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { Router } from '@angular/router';
 import { Client } from 'src/app/models/client.model';
 import { Project } from 'src/app/models/project.models';
 import { ClientService } from 'src/app/services/client.service';
@@ -10,11 +9,11 @@ import { TaskService } from 'src/app/services/task.service';
 import { Task } from 'src/app/models/task.models';
 
 @Component({
-  selector: 'app-projects',
-  templateUrl: './projects.component.html',
-  styleUrls: ['./projects.component.css'],
+  selector: 'app-projects-table',
+  templateUrl: './projects-table.component.html',
+  styleUrls: ['./projects-table.component.css'],
 })
-export class ProjectsComponent implements OnInit {
+export class ProjectsTableComponent implements OnInit {
   currentUser: firebase.User | null = null;
   projects: Project[] = [];
   tasks: Task[] = [];
@@ -22,7 +21,6 @@ export class ProjectsComponent implements OnInit {
 
   constructor(
     private afAuth: AngularFireAuth,
-    private router: Router,
     private projectServices: ProjectService,
     private taskService: TaskService,
     private clientService: ClientService
@@ -43,12 +41,6 @@ export class ProjectsComponent implements OnInit {
     this.clientService.getClients().subscribe({
       next: (res) => (this.clients = res),
       error: (err) => console.log(err),
-    });
-  }
-
-  logOut() {
-    this.afAuth.signOut().then(() => {
-      this.router.navigate(['/auth']);
     });
   }
 }

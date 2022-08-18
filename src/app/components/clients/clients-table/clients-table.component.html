@@ -1,0 +1,24 @@
+<div>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">City</th>
+        <th scope="col">State</th>
+        <th scope="col">Contry</th>
+        <th scope="col">Industry</th>
+        <th scope="col">Active</th>
+      </tr>
+    </thead>
+    <tbody *ngFor="let client of clients">
+      <tr>
+        <td>{{ client["name"] | json }}</td>
+        <td>{{ client["city"] | json }}</td>
+        <td>{{ client["state"] | json }}</td>
+        <td>{{ client["country"] | json }}</td>
+        <td>{{ client["industry_code"] | json }}</td>
+        <td>{{ client["active"] | json }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

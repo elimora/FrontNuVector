@@ -17,11 +17,15 @@ import { EmailVerificationComponent } from './components/email-verification/emai
 import { RecoverPasswordComponent } from './components/recover-password/recover-password.component';
 import { SpinnerComponent } from './shared/spinner/spinner.component';
 import { environment } from 'src/environments/environment';
+import { MatListModule } from '@angular/material/list';
 
 //services
 import { ProjectService } from './services/project.service';
-import { NewProjectComponent } from './components/new-project/new-project.component';
-import { AddClientComponent } from './components/add-client/add-client.component';
+import { HeaderComponent } from './components/header/header.component';
+import { SideNavComponent } from './components/side-nav/side-nav.component';
+import { HomeComponent } from './components/home/home.component';
+import { DashInsideComponent } from './components/dash-inside/dash-inside.component';
+import { AddProjectComponent } from './components/projects/add-project/add-project.component';
 
 @NgModule({
   declarations: [
@@ -31,8 +35,12 @@ import { AddClientComponent } from './components/add-client/add-client.component
     EmailVerificationComponent,
     RecoverPasswordComponent,
     SpinnerComponent,
-    NewProjectComponent,
-    AddClientComponent,
+
+    HeaderComponent,
+    SideNavComponent,
+    HomeComponent,
+    DashInsideComponent,
+    AddProjectComponent,
   ],
   imports: [
     BrowserModule,
@@ -42,6 +50,7 @@ import { AddClientComponent } from './components/add-client/add-client.component
     BrowserAnimationsModule, // required animations module
     ToastrModule.forRoot(), // ToastrModule added
     HttpClientModule,
+    MatListModule,
   ],
   providers: [ProjectService],
   bootstrap: [AppComponent],

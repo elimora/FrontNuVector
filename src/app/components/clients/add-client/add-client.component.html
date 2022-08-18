@@ -1,7 +1,7 @@
 <div class="grapper">
   <div class="body">
     <h1>Add new Client</h1>
-    <form (submit)="AddClient()" [formGroup]="addUser">
+    <form (submit)="AddClient()" [formGroup]="addUserForm">
       <div class="form-floating mb-3">
         <input
           class="form-control"
@@ -51,4 +51,5 @@
       </div>
     </form>
   </div>
+  <app-clients-table></app-clients-table>
 </div>

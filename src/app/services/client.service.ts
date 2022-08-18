@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Client } from '../models/client.model';
-import { map, Observable } from 'rxjs';
+import { BehaviorSubject, map, Observable, tap } from 'rxjs';
 import { IApiResponse } from '../interfaces/general';
 
 @Injectable({
@@ -9,16 +9,34 @@ import { IApiResponse } from '../interfaces/general';
 })
 export class ClientService {
   API_URI = 'http://localhost:3000';
+  private clients: BehaviorSubject<Client[]> = new BehaviorSubject<Client[]>(
+    []
+  );
+  private currentClient: BehaviorSubject<Client | null> =
+    new BehaviorSubject<Client | null>(null);
+
   constructor(private http: HttpClient) {}
 
-  getClients() {
-    return this.http
+  fetchClients() {
+    this.http
       .get<IApiResponse<Client[]>>(`${this.API_URI}/clients`)
-      .pipe(map((res) => res.body));
+      .pipe(tap((res) => this.clients.next(res.body)))
+      .subscribe();
   }
 
-  getClient(id: string) {
-    return this.http.get<IApiResponse<Client>>(`${this.API_URI}/clients/${id}`);
+  getClients() {
+    return this.clients.asObservable();
+  }
+
+  fetchClient(id: string) {
+    this.http
+      .get<IApiResponse<Client>>(`${this.API_URI}/clients/${id}`)
+      .pipe(tap((res) => this.currentClient.next(res.body)))
+      .subscribe();
+  }
+
+  getClient() {
+    return this.currentClient.asObservable();
   }
 
   deleteClient(id: string) {
