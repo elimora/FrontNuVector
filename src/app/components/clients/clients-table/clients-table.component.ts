@@ -9,6 +9,7 @@ import { ClientService } from 'src/app/services/client.service';
 })
 export class ClientsTableComponent implements OnInit {
   clients: Client[] = [];
+
   constructor(private readonly clientService: ClientService) {}
 
   ngOnInit(): void {
@@ -17,6 +18,15 @@ export class ClientsTableComponent implements OnInit {
     this.clientService.getClients().subscribe({
       next: (res) => ((this.clients = res), console.log(res)),
       error: (err) => console.log(err),
+    });
+  }
+
+  deleteClient(id: string) {
+    this.clientService.deleteClient(id).subscribe({
+      next: (res) => {
+        console.log(res);
+      },
+      error: (err) => console.error(err),
     });
   }
 }

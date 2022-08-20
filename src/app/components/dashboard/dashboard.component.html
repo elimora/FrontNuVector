@@ -22,9 +22,17 @@
       >
       <a
         mat-list-item
-        routerLink="/dashboard/add-client"
+        routerLink="/dashboard"
         routerLinkActive="list-item-active"
+        (click)="selectedTitle = 'Projects'"
         ><mat-icon>work</mat-icon>Projects</a
+      >
+      <a
+        mat-list-item
+        routerLink="/dashboard/app-graphic-chart"
+        routerLinkActive=""
+        (click)="selectedTitle = 'Graphics'"
+        ><mat-icon>assessment</mat-icon>Graphics</a
       >
     </mat-nav-list>
   </mat-drawer>

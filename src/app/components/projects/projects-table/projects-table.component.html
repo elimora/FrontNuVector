@@ -1,30 +1,28 @@
-<div class="container">
-  <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
-    <h1 class="display-4 fw-normal">Welcome to NuVector's projects</h1>
-    <p class="fs-5 text-muted">{{ currentUser?.email }}</p>
-
-    <div class="ProjectForm"></div>
-
-    }
-    <div>
-      <table class="table">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Name</th>
-            <th scope="col">Description</th>
-            <th scope="col">Active</th>
-          </tr>
-        </thead>
-        <tbody *ngFor="let project of projects">
-          <tr>
-            <th scope="row">1</th>
-            <td>{{ project["name"] | json }}</td>
-            <td>{{ project["description"] | json }}</td>
-            <td>{{ project["active"] | json }}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
+<div>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Client</th>
+        <th scope="col">Name</th>
+        <th scope="col">Description</th>
+        <th scope="col">Active</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody *ngFor="let project of projects">
+      <tr>
+        <!-- <th scope="row">1</th> -->
+        <td>{{ project["client"] | json }}</td>
+        <td>{{ project["name"] | json }}</td>
+        <td>{{ project["description"] | json }}</td>
+        <td>{{ project["active"] | json }}</td>
+        <td>
+          <button class="btn btn-info mx-3"><mat-icon>edit</mat-icon></button>
+          <button class="btn btn-danger mx-3">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>

@@ -12,6 +12,8 @@ import { AddClientComponent } from '../clients/add-client/add-client.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ClientsTableComponent } from '../clients/clients-table/clients-table.component';
 import { AddTaskComponent } from '../add-task/add-task.component';
+import { GraphicChartComponent } from '../graphic-chart/graphic-chart.component';
+import { NgChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -20,6 +22,7 @@ import { AddTaskComponent } from '../add-task/add-task.component';
     AddClientComponent,
     ClientsTableComponent,
     AddTaskComponent,
+    GraphicChartComponent,
   ],
   imports: [
     CommonModule,
@@ -31,6 +34,7 @@ import { AddTaskComponent } from '../add-task/add-task.component';
     MatDividerModule,
     MatIconModule,
     MatMenuModule,
+    NgChartsModule,
   ],
   bootstrap: [DashboardComponent],
 })

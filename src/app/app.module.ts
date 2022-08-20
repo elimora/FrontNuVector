@@ -26,6 +26,7 @@ import { SideNavComponent } from './components/side-nav/side-nav.component';
 import { HomeComponent } from './components/home/home.component';
 import { DashInsideComponent } from './components/dash-inside/dash-inside.component';
 import { AddProjectComponent } from './components/projects/add-project/add-project.component';
+import { TaskTableComponent } from './components/task-table/task-table.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { AddProjectComponent } from './components/projects/add-project/add-proje
     HomeComponent,
     DashInsideComponent,
     AddProjectComponent,
+    TaskTableComponent,
   ],
   imports: [
     BrowserModule,

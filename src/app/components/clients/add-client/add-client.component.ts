@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ClientService } from 'src/app/services/client.service';
 import { text } from 'stream/consumers';
+import { threadId } from 'worker_threads';
 import { Client } from '../../../models/client.model';
 
 @Component({
@@ -30,6 +31,7 @@ export class AddClientComponent implements OnInit {
       this.addUserForm.value;
 
     const ClientToSave: Client = {
+      id,
       name,
       city,
       state,

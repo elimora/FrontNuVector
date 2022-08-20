@@ -1,1 +1,42 @@
-<p>add-task works!</p>
+<div class="grapper">
+  <div class="body">
+    <h1>Add new Task</h1>
+    <form (submit)="AddTask()" [formGroup]="addProjectForm">
+      <div class="form-floating mb-3">
+        <!-- <input
+          class="form-control"
+          placeholder="Project name"
+          formControlName="name"
+        />
+        <label>Name</label> -->
+
+        <select name="FirstName">
+          <option>--Contractor's Name--</option>
+          <option *ngFor="let contra of contractors">
+            {{ contra["firstName"] + " " + contra["lastName"] | json }}
+          </option>
+        </select>
+      </div>
+      <div class="form-floating mb-3">
+        <input
+          class="form-control"
+          placeholder="Description"
+          formControlName="description"
+        />
+        <label>Description</label>
+      </div>
+      <div class="form-floating mb-3">
+        <input
+          class="form-control"
+          placeholder="active"
+          formControlName="active"
+        />
+        <label>Active</label>
+      </div>
+      <div class="d-grid gap-2">
+        <button type="submit" class="btn btn-primary btn-lg">Enter</button>
+      </div>
+    </form>
+  </div>
+  >
+</div>

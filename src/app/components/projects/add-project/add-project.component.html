@@ -1,1 +1,40 @@
-<p>add-project works!</p>
+<div class="grapper">
+  <div class="body">
+    <h1>Add new Project</h1>
+    <form (submit)="CreateProject()" [formGroup]="addProject">
+      <div class="form-floating mb-3">
+        <input
+          class="form-control"
+          placeholder="Client name"
+          formControlName="name"
+        />
+        <label>Name</label>
+      </div>
+      <div class="form-floating mb-3">
+        <input class="form-control" placeholder="city" formControlName="city" />
+        <label>City</label>
+      </div>
+      <div class="form-floating mb-3">
+        <input
+          class="form-control"
+          placeholder="state"
+          formControlName="state"
+        />
+        <label>Description</label>
+      </div>
+      <div class="form-floating mb-3">
+        <input
+          class="form-control"
+          placeholder="Country"
+          formControlName="country"
+        />
+        <label>Active</label>
+      </div>
+
+      <div class="d-grid gap-2">
+        <button type="submit" class="btn btn-primary btn-lg">Enter</button>
+      </div>
+    </form>
+  </div>
+  <app-add-project></app-add-project>
+</div>
