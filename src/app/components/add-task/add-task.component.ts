@@ -11,6 +11,10 @@ import { Client } from 'src/app/models/client.model';
 import { Task } from 'src/app/models/task.models';
 import { TaskService } from 'src/app/services/task.service';
 import { map } from 'rxjs';
+import { Products } from 'src/app/models/products.models';
+import { ProductsService } from 'src/app/services/products.service';
+import { CategoryService } from 'src/app/services/category.service';
+import { Category } from 'src/app/models/category.model';
 
 @Component({
   selector: 'app-add-task',
@@ -23,6 +27,8 @@ export class AddTaskComponent implements OnInit {
   projects: Project[] = [];
   activities: Activity[] = [];
   clients: Client[] = [];
+  products: Products[] = [];
+  category: Category[] = [];
 
   constructor(
     private readonly fb: FormBuilder,
@@ -30,7 +36,9 @@ export class AddTaskComponent implements OnInit {
     private readonly taskService: TaskService,
     private readonly contractorService: ContractorsService,
     private readonly clientsService: ClientService,
-    private readonly activityService: ActivityService
+    private readonly activityService: ActivityService,
+    private readonly productService: ProductsService,
+    private readonly categoryService: CategoryService
   ) {
     this.addTaskForm = this.fb.group({
       project: [null, [Validators.required]],
@@ -40,6 +48,9 @@ export class AddTaskComponent implements OnInit {
       billable_flag: [false, [Validators.required]],
       date: [new Date(), [Validators.required]],
       duration: [0, [Validators.required]],
+      product: [null, [Validators.required]],
+      category: [null, [Validators.required]],
+      description: [null, [Validators.required]],
     });
   }
 
@@ -79,6 +90,20 @@ export class AddTaskComponent implements OnInit {
     this.activityService.fetchActivity();
     this.activityService.getActivitiy().subscribe({
       next: (res) => ((this.activities = res), console.log(res)),
+      error: (err) => console.log(err),
+    });
+
+    //get all product to show them in a dropdown
+    this.productService.fetchProducts();
+    this.productService.getProducts().subscribe({
+      next: (res) => ((this.products = res), console.log(res)),
+      error: (err) => console.log(err),
+    });
+
+    //get all categories to show them in a dropdown
+    this.categoryService.fetchCategory();
+    this.categoryService.getCategory().subscribe({
+      next: (res) => ((this.category = res), console.log(res)),
       error: (err) => console.log(err),
     });
   }

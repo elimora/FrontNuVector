@@ -11,7 +11,6 @@ import { HttpClientJsonpModule, HttpClientModule } from '@angular/common/http';
 // Componentes
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { UserRegisterComponent } from './components/user-register/user-register.component';
 import { EmailVerificationComponent } from './components/email-verification/email-verification.component';
 import { RecoverPasswordComponent } from './components/recover-password/recover-password.component';
@@ -25,8 +24,6 @@ import { HeaderComponent } from './components/header/header.component';
 import { SideNavComponent } from './components/side-nav/side-nav.component';
 import { HomeComponent } from './components/home/home.component';
 import { DashInsideComponent } from './components/dash-inside/dash-inside.component';
-import { AddProjectComponent } from './components/projects/add-project/add-project.component';
-import { TaskTableComponent } from './components/task-table/task-table.component';
 
 @NgModule({
   declarations: [
@@ -41,8 +38,6 @@ import { TaskTableComponent } from './components/task-table/task-table.component
     SideNavComponent,
     HomeComponent,
     DashInsideComponent,
-    AddProjectComponent,
-    TaskTableComponent,
   ],
   imports: [
     BrowserModule,

@@ -2,7 +2,7 @@
   <table class="table">
     <thead>
       <tr>
-        <th scope="col">id</th>
+        <th scope="col">vale verga</th>
         <th scope="col">Description</th>
         <th scope="col">Duration</th>
         <th scope="col">flag</th>
@@ -14,10 +14,10 @@
         <td>{{ task.id }}</td>
         <td>{{ task.description }}</td>
         <td>{{ task.duration }}</td>
-        <td>{{ task.flag }}</td>
+        <td>{{ task.billable_flag }}</td>
 
         <td>
-          <button class="btn btn-info mx-3" (click)="onEditTask.emit(Task)">
+          <!-- <button class="btn btn-info mx-3" (click)="onEditTask.emit(Task)">
             <mat-icon>edit</mat-icon>
           </button>
           <button
@@ -25,7 +25,7 @@
             class="btn btn-danger mx-3"
           >
             <mat-icon>delete</mat-icon>
-          </button>
+          </button> -->
         </td>
       </tr>
     </tbody>

@@ -12,7 +12,7 @@ const routes: Routes = [
     path: '',
     component: DashboardComponent,
     children: [
-      { path: '', component: ProjectsTableComponent },
+      { path: '', component: AddProjectComponent },
       { path: 'add-client', component: AddClientComponent },
       { path: 'add-task', component: AddTaskComponent },
       { path: 'add-project', component: AddProjectComponent },

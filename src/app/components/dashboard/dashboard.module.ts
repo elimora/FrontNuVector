@@ -14,6 +14,8 @@ import { ClientsTableComponent } from '../clients/clients-table/clients-table.co
 import { AddTaskComponent } from '../add-task/add-task.component';
 import { GraphicChartComponent } from '../graphic-chart/graphic-chart.component';
 import { NgChartsModule } from 'ng2-charts';
+import { TaskTableComponent } from '../task-table/task-table.component';
+import { AddProjectComponent } from '../projects/add-project/add-project.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +24,8 @@ import { NgChartsModule } from 'ng2-charts';
     AddClientComponent,
     ClientsTableComponent,
     AddTaskComponent,
+    AddProjectComponent,
+    TaskTableComponent,
     GraphicChartComponent,
   ],
   imports: [
