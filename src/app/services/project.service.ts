@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Project } from '../models/project.models';
-import { map, Observable } from 'rxjs';
+import { BehaviorSubject, tap, map, Observable } from 'rxjs';
 import { IApiResponse } from '../interfaces/general';
 
 @Injectable({
@@ -10,6 +10,21 @@ import { IApiResponse } from '../interfaces/general';
 export class ProjectService {
   API_URI = 'http://localhost:3000';
   constructor(private http: HttpClient) {}
+
+  private project: BehaviorSubject<Project[]> = new BehaviorSubject<Project[]>(
+    []
+  );
+
+  fetchProjects() {
+    this.http
+      .get<IApiResponse<Project[]>>(`${this.API_URI}/projects`)
+      .pipe(tap((res) => this.project.next(res.body)))
+      .subscribe();
+  }
+
+  getProjectsObserv() {
+    return this.project.asObservable();
+  }
 
   getProjects() {
     return this.http

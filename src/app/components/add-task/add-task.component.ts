@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { error } from 'console';
 import { Contractor } from 'src/app/models/contractors.models';
 import { Project } from 'src/app/models/project.models';
 import { ContractorsService } from 'src/app/services/contractors.service';
 import { ProjectService } from 'src/app/services/project.service';
+import { ActivityService } from 'src/app/services/activity.service';
+import { Activity } from 'src/app/models/activity.model';
 
 @Component({
   selector: 'app-add-task',
@@ -14,11 +15,14 @@ import { ProjectService } from 'src/app/services/project.service';
 export class AddTaskComponent implements OnInit {
   addProjectForm: FormGroup;
   contractors: Contractor[] = [];
+  projects: Project[] = [];
+  activities: Activity[] = [];
 
   constructor(
     private fb: FormBuilder,
     private projectService: ProjectService,
-    private contractorService: ContractorsService
+    private contractorService: ContractorsService,
+    private readonly activityService: ActivityService
   ) {
     this.addProjectForm = this.fb.group({
       id: ['', [Validators.required]],
@@ -29,10 +33,22 @@ export class AddTaskComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    //get all contractors to show them in a dropdown
     this.contractorService.fetchContractor();
-
     this.contractorService.getContractors().subscribe({
       next: (res) => ((this.contractors = res), console.log(res)),
+      error: (err) => console.log(err),
+    });
+    //get all projects to show them in a dropdown
+    this.projectService.fetchProjects();
+    this.projectService.getProjectsObserv().subscribe({
+      next: (res) => ((this.projects = res), console.log(res)),
+      error: (err) => console.log(err),
+    });
+    //get all Activities to show them in a dropdown
+    this.activityService.fetchActivity();
+    this.activityService.getActivitiy().subscribe({
+      next: (res) => ((this.activities = res), console.log(res)),
       error: (err) => console.log(err),
     });
   }

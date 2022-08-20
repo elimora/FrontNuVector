@@ -9,30 +9,47 @@
           formControlName="name"
         />
         <label>Name</label> -->
-
-        <select name="FirstName">
-          <option>--Contractor's Name--</option>
-          <option *ngFor="let contra of contractors">
-            {{ contra["firstName"] + " " + contra["lastName"] | json }}
+        <select name="ProjectName">
+          <option>--Projects's Name--</option>
+          <option *ngFor="let project of projects">
+            {{ project["name"] | json }}
           </option>
         </select>
       </div>
-      <div class="form-floating mb-3">
+      <!-- <div class="form-floating mb-3">
         <input
           class="form-control"
           placeholder="Description"
           formControlName="description"
         />
         <label>Description</label>
-      </div>
+      </div> -->
       <div class="form-floating mb-3">
+        <select name="ContractorName">
+          <option>--Contractor's Name--</option>
+          <option *ngFor="let contra of contractors">
+            {{ contra["firstName"] + " " + contra["lastName"] | json }}
+          </option>
+        </select>
+      </div>
+
+      <!-- <div class="form-floating mb-3">
         <input
           class="form-control"
           placeholder="active"
           formControlName="active"
         />
         <label>Active</label>
+      </div> -->
+      <div class="form-floating mb-3">
+        <select name="ActivityName">
+          <option>--Activities's Name--</option>
+          <option *ngFor="let Activity of activities">
+            {{ Activity["description"] | json }}
+          </option>
+        </select>
       </div>
+
       <div class="d-grid gap-2">
         <button type="submit" class="btn btn-primary btn-lg">Enter</button>
       </div>
