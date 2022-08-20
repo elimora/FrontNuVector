@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ClientService } from 'src/app/services/client.service';
-import { text } from 'stream/consumers';
-import { threadId } from 'worker_threads';
 import { Client } from '../../../models/client.model';
 
 @Component({
@@ -11,10 +9,11 @@ import { Client } from '../../../models/client.model';
   styleUrls: ['./add-client.component.css'],
 })
 export class AddClientComponent implements OnInit {
-  addUserForm: FormGroup;
+  addClientForm: FormGroup;
+  selectedClient: Client | null = null;
 
   constructor(private fb: FormBuilder, private clientService: ClientService) {
-    this.addUserForm = this.fb.group({
+    this.addClientForm = this.fb.group({
       name: ['', [Validators.required]],
       city: ['', [Validators.required]],
       state: ['', [Validators.required]],
@@ -26,12 +25,11 @@ export class AddClientComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  AddClient() {
-    const { id, name, city, state, country, industry_code, active } =
-      this.addUserForm.value;
+  operateClient() {
+    const { name, city, state, country, industry_code, active } =
+      this.addClientForm.value;
 
-    const ClientToSave: Client = {
-      id,
+    const clientToSave: Client = {
       name,
       city,
       state,
@@ -40,12 +38,23 @@ export class AddClientComponent implements OnInit {
       active: Boolean(active),
     };
 
-    this.clientService.createClient(ClientToSave).subscribe({
-      next: (res) => {
+    const operation = this.selectedClient?.id
+      ? this.clientService.updateClient(this.selectedClient.id, clientToSave)
+      : this.clientService.createClient(clientToSave);
+
+    operation.subscribe({
+      next: () => {
         this.clientService.fetchClients();
-        this.addUserForm.reset();
+        this.addClientForm.reset();
+        this.selectedClient = null;
       },
       error: (err) => console.error(err),
     });
+  }
+
+  selectClient(client: Client) {
+    console.log(client);
+    this.selectedClient = client;
+    this.addClientForm.reset(client);
   }
 }

@@ -39,17 +39,10 @@ export class ClientService {
     return this.currentClient.asObservable();
   }
 
-  fetchClientsDeleted(id: string) {
-    this.http
-      .get<IApiResponse<Client[]>>(`${this.API_URI}/clients/${id}`)
-      .pipe(tap((res) => this.clients.next(res.body)))
-      .subscribe();
+  deleteClient(id: string) {
+    return this.http.delete<void>(`${this.API_URI}/clients/${id}`);
   }
 
-  deleteClient(id: string) {
-    //return this.http.delete<void>(`${this.API_URI}/clients/${id}`);
-    return this.currentClient.asObservable();
-  }
   createClient(client: Client) {
     return this.http.post<IApiResponse<Client>>(
       `${this.API_URI}/clients`,
@@ -59,7 +52,7 @@ export class ClientService {
 
   updateClient(id: string, updateClientObj: Client) {
     return this.http.put<IApiResponse<Client>>(
-      `${this.API_URI}/projects/${id}`,
+      `${this.API_URI}/clients/${id}`,
       updateClientObj
     );
   }

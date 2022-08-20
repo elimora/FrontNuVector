@@ -22,14 +22,8 @@ export class ProjectService {
       .subscribe();
   }
 
-  getProjectsObserv() {
-    return this.project.asObservable();
-  }
-
   getProjects() {
-    return this.http
-      .get<IApiResponse<Project[]>>(`${this.API_URI}/projects`)
-      .pipe(map((res) => res.body));
+    return this.project.asObservable();
   }
 
   getProject(id: string) {

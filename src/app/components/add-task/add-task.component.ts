@@ -6,6 +6,11 @@ import { ContractorsService } from 'src/app/services/contractors.service';
 import { ProjectService } from 'src/app/services/project.service';
 import { ActivityService } from 'src/app/services/activity.service';
 import { Activity } from 'src/app/models/activity.model';
+import { ClientService } from 'src/app/services/client.service';
+import { Client } from 'src/app/models/client.model';
+import { Task } from 'src/app/models/task.models';
+import { TaskService } from 'src/app/services/task.service';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'app-add-task',
@@ -13,26 +18,44 @@ import { Activity } from 'src/app/models/activity.model';
   styleUrls: ['./add-task.component.css'],
 })
 export class AddTaskComponent implements OnInit {
-  addProjectForm: FormGroup;
+  addTaskForm: FormGroup;
   contractors: Contractor[] = [];
   projects: Project[] = [];
   activities: Activity[] = [];
+  clients: Client[] = [];
 
   constructor(
-    private fb: FormBuilder,
-    private projectService: ProjectService,
-    private contractorService: ContractorsService,
+    private readonly fb: FormBuilder,
+    private readonly projectService: ProjectService,
+    private readonly taskService: TaskService,
+    private readonly contractorService: ContractorsService,
+    private readonly clientsService: ClientService,
     private readonly activityService: ActivityService
   ) {
-    this.addProjectForm = this.fb.group({
-      id: ['', [Validators.required]],
-      name: ['', [Validators.required]],
-      description: ['', [Validators.required]],
-      active: ['', [Validators.required]],
+    this.addTaskForm = this.fb.group({
+      project: [null, [Validators.required]],
+      contractor: [null, [Validators.required]],
+      client: [null, [Validators.required]],
+      activity: [null, [Validators.required]],
+      billable_flag: [false, [Validators.required]],
+      date: [new Date(), [Validators.required]],
+      duration: [0, [Validators.required]],
     });
   }
 
   ngOnInit(): void {
+    this.addTaskForm
+      .get('project')
+      ?.valueChanges.pipe<Project | undefined>(
+        map((projectId: string) =>
+          this.projects.find((project) => project.id === projectId)
+        )
+      )
+      .subscribe((value?: Project) => {
+        if (!value) return this.addTaskForm.get('client')?.setValue(null);
+        this.addTaskForm.get('client')?.setValue(value.client.id);
+      });
+
     //get all contractors to show them in a dropdown
     this.contractorService.fetchContractor();
     this.contractorService.getContractors().subscribe({
@@ -41,10 +64,17 @@ export class AddTaskComponent implements OnInit {
     });
     //get all projects to show them in a dropdown
     this.projectService.fetchProjects();
-    this.projectService.getProjectsObserv().subscribe({
+    this.projectService.getProjects().subscribe({
       next: (res) => ((this.projects = res), console.log(res)),
       error: (err) => console.log(err),
     });
+
+    // get all clients to show then in a dropdown
+    this.clientsService.fetchClients();
+    this.clientsService.getClients().subscribe({
+      next: (res) => (this.clients = res),
+    });
+
     //get all Activities to show them in a dropdown
     this.activityService.fetchActivity();
     this.activityService.getActivitiy().subscribe({
@@ -54,33 +84,16 @@ export class AddTaskComponent implements OnInit {
   }
 
   AddTask() {
-    const { id, name, description, active } = this.addProjectForm.value;
-
-    const PorjectToSave: Project = {
-      name,
-      description,
-      active,
-      client: {
-        id: '',
-      },
+    console.log(this.addTaskForm.value);
+    const taskToSave: Task = {
+      ...this.addTaskForm.value,
     };
 
-    this.projectService.createProject(PorjectToSave).subscribe({
-      next: (res) => {
-        //this.projectService.fetchClients();
-        this.addProjectForm.reset();
-      },
-      error: (err) => console.error(err),
-    });
+    // this.taskService.createTask(taskToSave).subscribe({
+    //   next: (res) => {
+    //     this.addTaskForm.reset();
+    //   },
+    //   error: (err) => console.error(err),
+    // });
   }
-
-  AddClient() {}
-}
-function next(
-  next: any,
-  arg1: (res: any) => void,
-  error: any,
-  arg3: (err: any) => void
-) {
-  throw new Error('Function not implemented.');
 }

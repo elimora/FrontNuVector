@@ -28,6 +28,7 @@ export class ProjectsTableComponent implements OnInit {
 
   ngOnInit(): void {
     this.afAuth.onAuthStateChanged((user) => (this.currentUser = user));
+    this.projectServices.fetchProjects();
     this.projectServices.getProjects().subscribe({
       next: (res) => (this.projects = res),
       error: (err) => console.error(err),
@@ -41,6 +42,12 @@ export class ProjectsTableComponent implements OnInit {
     this.clientService.getClients().subscribe({
       next: (res) => (this.clients = res),
       error: (err) => console.log(err),
+    });
+  }
+
+  deleteProject(id: string) {
+    this.projectServices.deleteProject(id).subscribe({
+      next: () => this.projectServices.fetchProjects(),
     });
   }
 }

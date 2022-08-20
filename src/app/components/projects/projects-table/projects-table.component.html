@@ -12,13 +12,16 @@
     <tbody *ngFor="let project of projects">
       <tr>
         <!-- <th scope="row">1</th> -->
-        <td>{{ project["client"] | json }}</td>
-        <td>{{ project["name"] | json }}</td>
-        <td>{{ project["description"] | json }}</td>
-        <td>{{ project["active"] | json }}</td>
+        <td>{{ project.client.name }}</td>
+        <td>{{ project.name }}</td>
+        <td>{{ project.description }}</td>
+        <td>{{ project.active }}</td>
         <td>
           <button class="btn btn-info mx-3"><mat-icon>edit</mat-icon></button>
-          <button class="btn btn-danger mx-3">
+          <button
+            class="btn btn-danger mx-3"
+            (click)="deleteProject(project.id)"
+          >
             <mat-icon>delete</mat-icon>
           </button>
         </td>

@@ -1,34 +1,48 @@
 <div class="grapper">
   <div class="body">
     <h1>Add new Task</h1>
-    <form (submit)="AddTask()" [formGroup]="addProjectForm">
-      <div class="form-floating mb-3">
-        <!-- <input
-          class="form-control"
-          placeholder="Project name"
-          formControlName="name"
-        />
-        <label>Name</label> -->
-        <select name="ProjectName">
-          <option>--Projects's Name--</option>
-          <option *ngFor="let project of projects">
-            {{ project["name"] | json }}
+    <form (submit)="AddTask()" [formGroup]="addTaskForm">
+      <div class="form-group mb-3">
+        <label>Project</label>
+        <select class="form-control" formControlName="project">
+          <option [ngValue]="null">--Projects's Name--</option>
+          <option *ngFor="let project of projects" [ngValue]="project.id">
+            {{ project["name"] }}
           </option>
         </select>
       </div>
-      <!-- <div class="form-floating mb-3">
+      <div class="form-group mb-3">
+        <label>Date</label>
         <input
           class="form-control"
-          placeholder="Description"
-          formControlName="description"
+          formControlName="date"
+          type="date"
+          [value]="addTaskForm.value.date | date: 'yyyy-MM-dd'"
         />
-        <label>Description</label>
-      </div> -->
-      <div class="form-floating mb-3">
-        <select name="ContractorName">
-          <option>--Contractor's Name--</option>
-          <option *ngFor="let contra of contractors">
-            {{ contra["firstName"] + " " + contra["lastName"] | json }}
+      </div>
+      <div class="form-group mb-3">
+        <label>Duration</label>
+        <input class="form-control" formControlName="duration" type="number" />
+      </div>
+      <div class="form-group mb-3">
+        <label>Contractor</label>
+        <select class="form-control" formControlName="contractor">
+          <option [ngValue]="null">--Contractor's Name--</option>
+          <option
+            *ngFor="let contractor of contractors"
+            [ngValue]="contractor.id"
+          >
+            {{ contractor.firstName + " " + contractor.lastName }}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-group mb-3">
+        <label for="client">Client</label>
+        <select class="form-control" formControlName="client" [disabled]="true">
+          <option [ngValue]="null">--Clients's Name--</option>
+          <option *ngFor="let client of clients" [ngValue]="client.id">
+            {{ client.name }}
           </option>
         </select>
       </div>
@@ -41,11 +55,12 @@
         />
         <label>Active</label>
       </div> -->
-      <div class="form-floating mb-3">
-        <select name="ActivityName">
-          <option>--Activities's Name--</option>
-          <option *ngFor="let Activity of activities">
-            {{ Activity["description"] | json }}
+      <div class="form-group w-full mb-5">
+        <label for="activity">Activity</label>
+        <select class="form-control" formControlName="activity">
+          <option [ngValue]="null">--Activities's Name--</option>
+          <option *ngFor="let activity of activities" [ngValue]="activity.id">
+            {{ activity["description"] }}
           </option>
         </select>
       </div>

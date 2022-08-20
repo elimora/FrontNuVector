@@ -12,18 +12,23 @@
         <th scope="col">Action</th>
       </tr>
     </thead>
-    <tbody *ngFor="let client of clients">
+    <tbody *ngFor="let client of clients; let i = index">
       <tr>
-        <td>{{ client["id"] | json }}</td>
-        <td>{{ client["name"] | json }}</td>
-        <td>{{ client["city"] | json }}</td>
-        <td>{{ client["state"] | json }}</td>
-        <td>{{ client["country"] | json }}</td>
-        <td>{{ client["industry_code"] | json }}</td>
-        <td>{{ client["active"] | json }}</td>
+        <td>{{ i + 1 }}</td>
+        <td>{{ client.name }}</td>
+        <td>{{ client.city }}</td>
+        <td>{{ client.state }}</td>
+        <td>{{ client.country }}</td>
+        <td>{{ client.industry_code }}</td>
+        <td>{{ client.active }}</td>
         <td>
-          <button class="btn btn-info mx-3"><mat-icon>edit</mat-icon></button>
-          <button (click)="deleteClient(client.id)" class="btn btn-danger mx-3">
+          <button class="btn btn-info mx-3" (click)="onEditClient.emit(client)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button
+            (click)="client.id && deleteClient(client.id)"
+            class="btn btn-danger mx-3"
+          >
             <mat-icon>delete</mat-icon>
           </button>
         </td>
