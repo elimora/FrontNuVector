@@ -17,8 +17,8 @@ export class GraphicChartComponent implements OnInit {
   public barChartLegends = true;
 
   public barChartData = [
-    { data: [65, 56, 26, 49, 99, 50], label: 'Serie A' },
-    { data: [22, 80, 26, 45, 22, 49], label: 'Serie B' },
+    { data: [65, 56, 26, 49, 99, 50], label: 'Hours' },
+    { data: [22, 80, 26, 45, 22, 49], label: 'Project' },
   ];
   constructor() {}
 

@@ -2,19 +2,22 @@
   <table class="table">
     <thead>
       <tr>
-        <th scope="col">vale verga</th>
-        <th scope="col">Description</th>
+        <th scope="col">#</th>
+        <th scope="col">Project</th>
+        <th scope="col">Client</th>
         <th scope="col">Duration</th>
-        <th scope="col">flag</th>
+
+        <th scope="col">Product</th>
       </tr>
     </thead>
     <tbody *ngFor="let task of tasks; let i = index">
       <tr>
         <td>{{ i + 1 }}</td>
-        <td>{{ task.id }}</td>
-        <td>{{ task.description }}</td>
+        <td>{{ task.project.name }}</td>
+        <td>{{ task.client.name }}</td>
         <td>{{ task.duration }}</td>
-        <td>{{ task.billable_flag }}</td>
+
+        <td>{{ task.product.description }}</td>
 
         <td>
           <!-- <button class="btn btn-info mx-3" (click)="onEditTask.emit(Task)">
@@ -26,6 +29,13 @@
           >
             <mat-icon>delete</mat-icon>
           </button> -->
+
+          <button class="btn btn-info mx-3">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button class="btn btn-danger mx-3">
+            <mat-icon>delete</mat-icon>
+          </button>
         </td>
       </tr>
     </tbody>

@@ -34,7 +34,7 @@ export class ProjectService {
     return this.http.delete(`${this.API_URI}/projects/${id}`);
   }
   createProject(project: Project) {
-    return this.http.post(`${this.API_URI}/projects`, project);
+    return this.http.post(`${this.API_URI}/project`, project);
   }
 
   updateProject(id: string, updatePro: Project) {

@@ -41,16 +41,17 @@ export class AddTaskComponent implements OnInit {
     private readonly categoryService: CategoryService
   ) {
     this.addTaskForm = this.fb.group({
-      project: [null, [Validators.required]],
-      contractor: [null, [Validators.required]],
-      client: [null, [Validators.required]],
-      activity: [null, [Validators.required]],
-      billable_flag: [false, [Validators.required]],
+      project: ['', [Validators.required]],
+      contractor: ['', [Validators.required]],
+      client: ['', [Validators.required]],
+      activity: ['', [Validators.required]],
+      billable_flag: [true, [Validators.required]],
       date: [new Date(), [Validators.required]],
-      duration: [0, [Validators.required]],
-      product: [null, [Validators.required]],
-      category: [null, [Validators.required]],
-      description: [null, [Validators.required]],
+      duration: ['', [Validators.required]],
+      product: ['', [Validators.required]],
+      category: ['', [Validators.required]],
+      description: ['', [Validators.required]],
+      //active: [null, [Validators.required]],
     });
   }
 
@@ -114,11 +115,11 @@ export class AddTaskComponent implements OnInit {
       ...this.addTaskForm.value,
     };
 
-    // this.taskService.createTask(taskToSave).subscribe({
-    //   next: (res) => {
-    //     this.addTaskForm.reset();
-    //   },
-    //   error: (err) => console.error(err),
-    // });
+    this.taskService.createTask(taskToSave).subscribe({
+      next: (res) => {
+        this.addTaskForm.reset();
+      },
+      error: (err) => console.error(err),
+    });
   }
 }
