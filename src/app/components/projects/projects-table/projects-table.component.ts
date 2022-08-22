@@ -30,7 +30,7 @@ export class ProjectsTableComponent implements OnInit {
     this.afAuth.onAuthStateChanged((user) => (this.currentUser = user));
     this.projectServices.fetchProjects();
     this.projectServices.getProjects().subscribe({
-      next: (res) => (this.projects = res),
+      next: (res) => ((this.projects = res), console.log(res)),
       error: (err) => console.error(err),
     });
 

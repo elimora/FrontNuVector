@@ -29,6 +29,7 @@ export class AddTaskComponent implements OnInit {
   clients: Client[] = [];
   products: Products[] = [];
   category: Category[] = [];
+  selectedTask: Task | null = null;
 
   constructor(
     private readonly fb: FormBuilder,
@@ -109,17 +110,35 @@ export class AddTaskComponent implements OnInit {
     });
   }
 
-  AddTask() {
-    console.log(this.addTaskForm.value);
+  saveTask() {
     const taskToSave: Task = {
       ...this.addTaskForm.value,
     };
 
-    this.taskService.createTask(taskToSave).subscribe({
+    const operation = this.selectedTask?.id
+      ? this.taskService.updateTask(this.selectedTask.id, taskToSave)
+      : this.taskService.createTask(taskToSave);
+
+    operation.subscribe({
       next: (res) => {
+        this.taskService.fetchTasks();
         this.addTaskForm.reset();
       },
       error: (err) => console.error(err),
+    });
+  }
+
+  selectTask(task: Task) {
+    console.log(task);
+    this.selectedTask = task;
+    this.addTaskForm.reset({
+      ...task,
+      project: task.project.id,
+      contractor: task.contractor.id,
+      client: task.client.id,
+      activity: task.activity.id,
+      product: task.product.id,
+      category: task.category.id,
     });
   }
 }

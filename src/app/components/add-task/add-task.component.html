@@ -1,7 +1,7 @@
 <div class="grapper">
   <div class="body">
     <h1>Add new Task</h1>
-    <form (submit)="AddTask()" [formGroup]="addTaskForm">
+    <form (submit)="saveTask()" [formGroup]="addTaskForm">
       <div class="form-group mb-3">
         <label>Project</label>
         <select class="form-control" formControlName="project">
@@ -109,6 +109,6 @@
     </form>
   </div>
   <div style="flex-grow: 1; align-self: flex-start">
-    <app-task-table></app-task-table>
+    <app-task-table (editTask)="selectTask($event)"></app-task-table>
   </div>
 </div>

@@ -30,10 +30,10 @@
             <mat-icon>delete</mat-icon>
           </button> -->
 
-          <button class="btn btn-info mx-3">
+          <button class="btn btn-info mx-3" (click)="onEditTask.emit(task)">
             <mat-icon>edit</mat-icon>
           </button>
-          <button class="btn btn-danger mx-3">
+          <button class="btn btn-danger mx-3" (click)="deleteTask(task.id)">
             <mat-icon>delete</mat-icon>
           </button>
         </td>

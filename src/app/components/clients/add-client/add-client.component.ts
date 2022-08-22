@@ -25,7 +25,7 @@ export class AddClientComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  operateClient() {
+  saveClient() {
     const { name, city, state, country, industry_code, active } =
       this.addClientForm.value;
 
@@ -53,7 +53,6 @@ export class AddClientComponent implements OnInit {
   }
 
   selectClient(client: Client) {
-    console.log(client);
     this.selectedClient = client;
     this.addClientForm.reset(client);
   }
