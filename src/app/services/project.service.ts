@@ -15,9 +15,11 @@ export class ProjectService {
     []
   );
 
-  fetchProjects() {
+  fetchProjects(searchParams: { name?: string; client?: string } = {}) {
     this.http
-      .get<IApiResponse<Project[]>>(`${this.API_URI}/projects`)
+      .get<IApiResponse<Project[]>>(`${this.API_URI}/projects`, {
+        params: searchParams,
+      })
       .pipe(tap((res) => this.project.next(res.body)))
       .subscribe();
   }

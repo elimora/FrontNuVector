@@ -1,4 +1,5 @@
 <div>
+  <input placeholder="Buscar" (input)="handleSearch($event)" />
   <table class="table">
     <thead>
       <tr>
@@ -17,7 +18,12 @@
         <td>{{ project.description }}</td>
         <td>{{ project.active }}</td>
         <td>
-          <button class="btn btn-info mx-3"><mat-icon>edit</mat-icon></button>
+          <button
+            class="btn btn-info mx-3"
+            (click)="onEditProject.emit(project)"
+          >
+            <mat-icon>edit</mat-icon>
+          </button>
           <button
             class="btn btn-danger mx-3"
             (click)="deleteProject(project.id)"

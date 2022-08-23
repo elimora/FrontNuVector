@@ -1,15 +1,14 @@
 <div class="grapper">
   <div class="body">
     <h1>Add new Project</h1>
-    <form (submit)="CreateProject()" [formGroup]="addProject">
+    <form (submit)="saveProject()" [formGroup]="addProjectForm">
       <div class="form-group mb-3">
-        <label>Project</label>
-        <select class="form-control" formControlName="name">
-          <option [ngValue]="null">--Projects's Name--</option>
-          <option *ngFor="let project of projects" [ngValue]="project.id">
-            {{ project["name"] }}
-          </option>
-        </select>
+        <label>Name</label>
+        <input
+          class="form-control"
+          placeholder="Project name"
+          formControlName="name"
+        />
       </div>
       <div class="form-group mb-3">
         <label>Description</label>
@@ -43,5 +42,7 @@
     </form>
   </div>
 
-  <app-projects-table></app-projects-table>
+  <app-projects-table
+    (editProject)="selectProject($event)"
+  ></app-projects-table>
 </div>

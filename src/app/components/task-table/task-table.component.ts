@@ -21,6 +21,13 @@ export class TaskTableComponent implements OnInit {
     });
   }
 
+  handleSearch(event: Event) {
+    const input = event.target as HTMLInputElement;
+    this.taskService.fetchTasks({
+      client: input.value,
+    });
+  }
+
   deleteTask(id: string) {
     this.taskService.deleteTask(id).subscribe({
       next: () => this.taskService.fetchTasks(),

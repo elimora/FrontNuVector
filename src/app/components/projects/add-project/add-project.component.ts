@@ -12,16 +12,18 @@ import { Client } from 'src/app/models/client.model';
   styleUrls: ['./add-project.component.css'],
 })
 export class AddProjectComponent implements OnInit {
-  addProject: FormGroup;
+  addProjectForm: FormGroup;
   projects: Project[] = [];
   clients: Client[] = [];
+
+  selectedProject: Project | null = null;
 
   constructor(
     private readonly fb: FormBuilder,
     private readonly projectService: ProjectService,
     private readonly clientsService: ClientService
   ) {
-    this.addProject = this.fb.group({
+    this.addProjectForm = this.fb.group({
       name: ['', [Validators.required]],
       description: ['', [Validators.required]],
       client: ['', [Validators.required]],
@@ -30,17 +32,6 @@ export class AddProjectComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.addProject
-      .get('name')
-      ?.valueChanges.pipe<Project | undefined>(
-        map((projectId: string) =>
-          this.projects.find((project) => project.id === projectId)
-        )
-      )
-      .subscribe((value?: Project) => {
-        if (!value) return this.addProject.get('client')?.setValue(null);
-        this.addProject.get('client')?.setValue(value.client.id);
-      });
     //get all proyects to send them to the dropdpwn
     this.projectService.fetchProjects();
     this.projectService.getProjects().subscribe({
@@ -54,17 +45,45 @@ export class AddProjectComponent implements OnInit {
     });
   }
 
-  CreateProject() {
-    console.log(this.addProject.value);
+  saveProject() {
+    // const { name, city, state, country, industry_code, active } =
+    // this.addClientForm.value; idem
+
     const projectToSave: Project = {
-      ...this.addProject.value,
+      //idem to project
+      ...this.addProjectForm.value,
     };
 
-    this.projectService.createProject(projectToSave).subscribe({
-      next: (res) => {
-        this.addProject.reset();
+    const operation = this.selectedProject?.id
+      ? this.projectService.updateProject(
+          this.selectedProject.id,
+          projectToSave
+        )
+      : this.projectService.createProject(projectToSave);
+
+    operation.subscribe({
+      next: () => {
+        this.projectService.fetchProjects();
+        this.addProjectForm.reset();
+        this.selectedProject = null;
       },
       error: (err) => console.error(err),
+    });
+
+    // this.projectService.createProject(projectToSave).subscribe({
+    //   next: (res) => {
+    //     this.addProjectForm.reset();
+    //   },
+    //   error: (err) => console.error(err),
+    // });
+  }
+
+  selectProject(project: Project) {
+    this.selectedProject = project;
+    console.log(project.id);
+    this.addProjectForm.reset({
+      ...project,
+      client: project.client.id,
     });
   }
 }

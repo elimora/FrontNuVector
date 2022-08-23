@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import firebase from 'firebase/compat/app';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Client } from 'src/app/models/client.model';
@@ -15,9 +15,11 @@ import { Task } from 'src/app/models/task.models';
 })
 export class ProjectsTableComponent implements OnInit {
   currentUser: firebase.User | null = null;
-  projects: Project[] = [];
   tasks: Task[] = [];
   clients: Client[] = [];
+  projects: Project[] = [];
+
+  @Output('editProject') onEditProject = new EventEmitter<Project>();
 
   constructor(
     private afAuth: AngularFireAuth,
@@ -42,6 +44,14 @@ export class ProjectsTableComponent implements OnInit {
     this.clientService.getClients().subscribe({
       next: (res) => (this.clients = res),
       error: (err) => console.log(err),
+    });
+  }
+
+  handleSearch(event: Event) {
+    const input = event.target as HTMLInputElement;
+    this.projectServices.fetchProjects({
+      name: input.value,
+      client: input.value,
     });
   }
 

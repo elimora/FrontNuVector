@@ -15,9 +15,11 @@ export class TaskService {
     new BehaviorSubject<Task | null>(null);
   constructor(private http: HttpClient) {}
 
-  fetchTasks() {
+  fetchTasks(searchParams: { client?: string } = {}) {
     this.http
-      .get<IApiResponse<Task[]>>(`${this.API_URI}/tasks-entries`)
+      .get<IApiResponse<Task[]>>(`${this.API_URI}/tasks-entries`, {
+        params: searchParams,
+      })
       .pipe(tap((res) => this.task.next(res.body)))
       .subscribe();
   }
