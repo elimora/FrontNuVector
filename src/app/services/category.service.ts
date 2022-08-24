@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, tap } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { IApiResponse } from '../interfaces/general';
 import { Category } from '../models/category.model';
 
@@ -8,7 +9,6 @@ import { Category } from '../models/category.model';
   providedIn: 'root',
 })
 export class CategoryService {
-  API_URI = 'http://localhost:3000';
   private category: BehaviorSubject<Category[]> = new BehaviorSubject<
     Category[]
   >([]);
@@ -17,7 +17,7 @@ export class CategoryService {
 
   fetchCategory() {
     this.http
-      .get<IApiResponse<Category[]>>(`${this.API_URI}/category`)
+      .get<IApiResponse<Category[]>>(`${environment.apiUrl}/category`)
       .pipe(tap((res) => this.category.next(res.body)))
       .subscribe();
   }

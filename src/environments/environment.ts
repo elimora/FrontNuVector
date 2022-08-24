@@ -4,6 +4,7 @@
 
 export const environment = {
   production: false,
+  apiUrl: 'https://nuvector-app.herokuapp.com/api',
   firebaseConfig: {
     apiKey: 'AIzaSyD8tWoF1jHsCkTpkKFrTHe6-Mav4eJ3x4M',
     authDomain: 'nuvectorlogin.firebaseapp.com',

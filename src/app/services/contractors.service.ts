@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, tap } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { IApiResponse } from '../interfaces/general';
 import { Contractor } from '../models/contractors.models';
 
@@ -8,7 +9,6 @@ import { Contractor } from '../models/contractors.models';
   providedIn: 'root',
 })
 export class ContractorsService {
-  API_URI = 'http://localhost:3000';
   private contractor: BehaviorSubject<Contractor[]> = new BehaviorSubject<
     Contractor[]
   >([]);
@@ -17,7 +17,7 @@ export class ContractorsService {
 
   fetchContractor() {
     this.http
-      .get<IApiResponse<Contractor[]>>(`${this.API_URI}/contractors`)
+      .get<IApiResponse<Contractor[]>>(`${environment.apiUrl}/contractors`)
       .pipe(tap((res) => this.contractor.next(res.body)))
       .subscribe();
   }

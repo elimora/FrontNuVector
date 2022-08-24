@@ -3,13 +3,12 @@ import { HttpClient } from '@angular/common/http';
 import { Task } from '../models/task.models';
 import { IApiResponse } from '../interfaces/general';
 import { BehaviorSubject, map, tap } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TaskService {
-  API_URI = 'http://localhost:3000';
-
   private task: BehaviorSubject<Task[]> = new BehaviorSubject<Task[]>([]);
   private currentTask: BehaviorSubject<Task | null> =
     new BehaviorSubject<Task | null>(null);
@@ -17,7 +16,7 @@ export class TaskService {
 
   fetchTasks(searchParams: { client?: string } = {}) {
     this.http
-      .get<IApiResponse<Task[]>>(`${this.API_URI}/tasks-entries`, {
+      .get<IApiResponse<Task[]>>(`${environment.apiUrl}/tasks-entries`, {
         params: searchParams,
       })
       .pipe(tap((res) => this.task.next(res.body)))
@@ -36,7 +35,7 @@ export class TaskService {
 
   fetchTask(id: string) {
     this.http
-      .get<IApiResponse<Task>>(`${this.API_URI}/task-entry/${id}`)
+      .get<IApiResponse<Task>>(`${environment.apiUrl}/task-entry/${id}`)
       .pipe(tap((res) => this.currentTask.next(res.body)))
       .subscribe();
   }
@@ -50,13 +49,16 @@ export class TaskService {
   // }
 
   deleteTask(id: string) {
-    return this.http.delete(`${this.API_URI}/task-entries/${id}`);
+    return this.http.delete(`${environment.apiUrl}/task-entries/${id}`);
   }
   createTask(task: Task) {
-    return this.http.post(`${this.API_URI}/task-entries`, task);
+    return this.http.post(`${environment.apiUrl}/task-entries`, task);
   }
 
   updateTask(id: string, updateTaskOjb: Task) {
-    return this.http.put(`${this.API_URI}/task-entries/${id}`, updateTaskOjb);
+    return this.http.put(
+      `${environment.apiUrl}/task-entries/${id}`,
+      updateTaskOjb
+    );
   }
 }

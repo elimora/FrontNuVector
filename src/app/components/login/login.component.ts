@@ -3,7 +3,6 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { ValidationError } from 'sequelize/types';
 import { FirebaseCodeErrorsService } from 'src/app/services/firebase-code-errors.service';
 
 @Component({
